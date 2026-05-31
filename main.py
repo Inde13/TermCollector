@@ -9,7 +9,7 @@ from Utils.display import clr
 from World.Player.player import Player
 
 
-# Load the whole item database
+# Load the whole item 'database'
 
 with open('World/Items/itemdb.yml', 'r') as f:
     item_data = yaml.safe_load(f)
