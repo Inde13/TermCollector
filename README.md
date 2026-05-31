@@ -1,4 +1,4 @@
-#Term Collector
+# Term Collector
 A cli-like collecting game.
 
 The game is in very early development stage.
