@@ -1,0 +1,44 @@
+BASE:
+    id: dev_test
+    name: magic_wand
+    type: dev
+    rarity: dev
+    points:
+        key: value
+    craft:
+        key: value
+    properties:
+        - item
+    
+wood:
+    id: wood
+    name: Wood
+    type: material
+    rarity: common
+    points:
+        base_xp: 10
+    craft:
+    properties:
+    
+stone:
+    id: stone
+    name: Stone
+    type: material
+    rarity: common
+    points:
+        base_xp: 10
+    craft:
+    properties:
+        
+hammer:
+    id: hammer
+    name: Hammer
+    type: tool
+    rarity: uncommon
+    points:
+        base_xp: 100
+    craft:
+        wood: 1
+        stone: 2
+    properties:
+        - stone_boost
