@@ -1,5 +1,5 @@
 # Term Collector
-A cli-like collecting game.
+A cli-like collecting Python game.
 
 The game is in very early development stage.
 
