@@ -7,7 +7,7 @@
 (Please issue before sending a PR)
 
 ## 🏛️ Dependencies
-- Pyyaml
+- pyyaml
 - rich
 
 ## 🧩 How to play
