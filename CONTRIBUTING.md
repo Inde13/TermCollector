@@ -22,6 +22,8 @@ That way we can discuss about the changes and coordinate for a better collaborat
 
 ## 💻 Code
 
+First, learn the [Code Structure](Docs/structure.md)
+
 If you want to contribute with code, make sure to have this list in mind:
 
 - Follow the PEP8 as much as possible

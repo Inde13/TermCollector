@@ -5,7 +5,6 @@
 ⏳ The game is in very early development stage.
 
 ✨ [Contributions](CONTRIBUTING.md) and ideas are very well welcome.
-(Please issue before sending a PR)
 
 ## 🏛️ Dependencies
 
@@ -27,5 +26,6 @@ Check the [ToDo](ToDo.md) to see the future plans and features under development
 
 Check [Contributions](CONTRIBUTING.md) to contribute to the project efficiently.
 
+Check [Code Structure](Docs/structure.md) to learn about the game code and how it works.
 
 Project by Matheus Hanzoi

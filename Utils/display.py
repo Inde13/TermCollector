@@ -1,4 +1,4 @@
-from Core.settings import TERM_W, STD_LINE_CHAR
+from Core.settings import TERM_W, TERM_H, STD_LINE_CHAR, OS_NAME
 
 def option_menu(options):
     for idx, opt in enumerate(options):
@@ -6,7 +6,12 @@ def option_menu(options):
 
 def clr():
     from os import system
-    system('clear')
+    if OS_NAME in ("darwin", "linux", "linux2", "android"):
+        system('clear')
+    elif OS_NAME == "win32":
+        system("cls")
+    else:
+        print("\n" * TERM_H)
 
 def line(n=TERM_W, char=STD_LINE_CHAR):
     print(char*n)

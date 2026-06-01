@@ -1,11 +1,12 @@
 from rich import inspect, print
 import yaml
 
+from Core.managers import StateManager, DataManager
 import Core.refs as ref
-from World.Items.items import Container, ItemBuilder, ItemObj
-from States.base import State, StateManager
+from States.base import State
 from States.common import *
 from Utils.display import clr
+from World.Items.items import Container, ItemBuilder, ItemObj
 from World.Player.player import Player
 
 
@@ -21,8 +22,9 @@ class Game:
         # States
 
         self.sm = StateManager(
-            Start(), Menu(), Inventory(), WIP()
+            Start(), Menu(), Inventory(), WIP(), ItemList()
         )
+        self.dm = DataManager()
 
         self.sm.go_to(ref.id_start_menu)
 
@@ -41,11 +43,14 @@ class Game:
 
         while self.running:
             clr()
-
-            self.sm.run(self)
-            self.sm.update(self)
+            try:
+                self.sm.run(self)
+                self.sm.update(self)
+            except KeyboardInterrupt:
+                break
 
 
 Game().run()
-
+clr()
+print("-Game Closed-")
 
