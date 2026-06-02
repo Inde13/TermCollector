@@ -19,12 +19,12 @@ class StateManager:
     def go_back(self):
         if len(self.queue) >= 2:
             self.queue.pop()
-            self.current = self.queue[-1]
+            self.current = self.queue[-1]()
 
     def go_to(self, state_id):
         for state in self.state_pool:
             if state.id == state_id:
-                self.current = state
+                self.current = state()
                 self.queue.append(state)
                 return
         else:
@@ -32,8 +32,6 @@ class StateManager:
 
     def run(self, context):
         self.current.run(context)
-
-    def update(self, context):
         self.current.update(context)
 
 

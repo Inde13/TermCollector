@@ -1,6 +1,9 @@
 from math import ceil
 
-from Core.settings import TERM_W, STD_PAGE_SIZE
+from rich import print
+
+from Core.settings import TERM_W, STD_PAGE_SIZE, STD_PROMPT
+from Utils.display import *
 
 class Pager:
     def __init__(self, data, start=0, page_size=None):
@@ -43,19 +46,58 @@ class Pager:
         if self.cursor >= len(self.pages[self.current]):
             self.cursor = 0
 
-    def display_current(self):
-        for i in self.data:
-            print(i)
+    def is_empty(self):
+        return self.page_amount == 0
 
-    def selector_mode(self):
+    def display_current(self):
         if self.page_amount == 0:
             print("No data")
             return
 
-        for idx, i in enumerate(self.pages[self.current]):
-            txt = i
-            if idx == self.cursor: txt = "-->  " + txt
-            print(txt)
+        for i in self.pages[self.current]:
+            print(i)
 
-        page_index = f"{self.current+1}/{self.page_amount}"
-        print(page_index.center(TERM_W))
+    def selector_mode(self, ctx, selection_key):
+        if self.page_amount == 0:
+            print("No data")
+            return
+
+        while True:
+            clr()
+
+            display_title("Selection Mode")
+
+            for idx, i in enumerate(self.pages[self.current]):
+                txt = i
+                if idx == self.cursor: txt = "-->  " + txt
+                print(txt)
+
+            page_index = f"{self.current+1}/{self.page_amount}"
+            print(page_index.center(TERM_W))
+
+            line()
+            print("Enter 'w' or 's' to move the cursor")
+            print("Enter 'a' or 'd' to move the pages")
+
+            options = ["Select", "Back"]
+            option_menu(options)
+
+            match input(STD_PROMPT):
+                case "1" if self.page_amount > 0:
+                    ctx.dm.add(
+                        selection_key,
+                        self.pages[self.current][self.cursor])
+                    ctx.sm.go_back()
+                    break
+                case "2":
+                    ctx.sm.go_back()
+                    break
+                case "a" if self.page_amount > 0:
+                    self.back_page()
+                case "d" if self.page_amount > 0:
+                    self.next_page()
+                case "w" if self.page_amount > 0:
+                    self.cursor_up()
+                case "s" if self.page_amount > 0:
+                    self.cursor_down()
+

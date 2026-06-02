@@ -10,4 +10,5 @@ STD_PROMPT    = "> "
 STD_LINE_CHAR = "—"
 STD_PAGE_SIZE = 8
 
-
+# DEV
+DEV_MODE = True

@@ -1,14 +1,15 @@
-from rich import inspect, print
+from rich import print
 import yaml
 
 from Core.managers import StateManager, DataManager
 import Core.refs as ref
-from States.base import State
-from States.common import *
+from Core.settings import DEV_MODE, TERM_W
+from States.dev_st import *
+from States.menus import *
+from States.solo import *
 from Utils.display import clr
 from World.Items.items import Container, ItemBuilder, ItemObj
 from World.Player.player import Player
-
 
 # Load the whole item 'database'
 
@@ -22,7 +23,8 @@ class Game:
         # States
 
         self.sm = StateManager(
-            Start(), Menu(), Inventory(), WIP(), ItemList()
+            Start, Menu, Inventory, WIP, ItemList,
+            Dev_Options
         )
         self.dm = DataManager()
 
@@ -30,6 +32,7 @@ class Game:
 
         # Game stuff
 
+        self.items_data = item_data
         self.items = [ItemBuilder(i) for i in item_data.values()]
         self.player = Player(Container())
 
@@ -43,11 +46,12 @@ class Game:
 
         while self.running:
             clr()
+            if DEV_MODE:
+                print("=- DEV MODE ON -=".center(TERM_W))
             try:
                 self.sm.run(self)
-                self.sm.update(self)
             except KeyboardInterrupt:
-                break
+                self.running = False
 
 
 Game().run()

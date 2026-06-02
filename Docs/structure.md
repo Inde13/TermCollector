@@ -12,7 +12,7 @@ Managers manage States, Data and more
 
 ## States
 
-The `States` directory contains every state class organized into files named according to the use of the states in it (eg. `common.py` for frequently used states)
+The `States` directory contains every state class organized into files named according to the use of the states in it (eg. `solo.py` for independently used states)
 
 Every state has 2 main methods:
 
@@ -44,3 +44,8 @@ Currently, There are 2 main managers:
 - `StateManager`: Manages states
 - `DataManager`: Manages global data
 
+The `StateManager` keeps a pool with "pointers" to every state class and instantiates them dinamically.
+
+The `DataManager` keeps a dictionary with every currently active global value. (Refer to [datakeys](Core/datakeys.py)) for the default keys)
+
+Active values in the `DataManager` have to be cleared after being used since methods can end up using non related values.
