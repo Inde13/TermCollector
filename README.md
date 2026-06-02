@@ -13,16 +13,22 @@
 
 ## 🧩 How to play
 
-Clone the repository and run the `main.py` file (in the game directory)
+Clone the repository and run
+```
+cd TermCollector
+python main.py
+```
 
-if you don't have the dependency packages, run
-`pip install rich pyyaml`
+if you don't have the dependency packages, run this first:
+```
+pip install rich pyyaml
+```
 
 ✨ Boom! as simple as that.
 
 ## Development
 
-Check the [ToDo](ToDo.md) to see the future plans and features under development
+Check the [ToDo](Docs/ToDo.md) to see the future plans and features under development
 
 Check [Contributions](CONTRIBUTING.md) to contribute to the project efficiently.
 
