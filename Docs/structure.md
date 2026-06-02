@@ -46,6 +46,6 @@ Currently, There are 2 main managers:
 
 The `StateManager` keeps a pool with "pointers" to every state class and instantiates them dinamically.
 
-The `DataManager` keeps a dictionary with every currently active global value. (Refer to [datakeys](Core/datakeys.py)) for the default keys)
+The `DataManager` keeps a dictionary with every currently active global value. (Refer to [datakeys](../Core/datakeys.py)) for the default keys)
 
 Active values in the `DataManager` have to be cleared after being used since methods can end up using non related values.
