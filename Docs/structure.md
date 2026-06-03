@@ -19,16 +19,12 @@ Every state has 2 main methods:
 - `run`: The display and logic of the state
 - `update`: An additional method for extra logic (optional)
 
-States inherit from a base State parent that looks like:
+States inherit from a base State parent that looks like this (for now):
 
 ```python
 class State:
-    def __init__(self, id):
-        self.id = id
-
     def run(self, ctx):
-        print(self.id)
-        input()
+        pass
 
     def update(self, ctx):
         pass

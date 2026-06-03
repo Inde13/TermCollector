@@ -1,7 +1,6 @@
 class State:
     def run(self, context):
-        print(self.id)
-        input()
+        pass
 
     def update(self, context):
         pass
