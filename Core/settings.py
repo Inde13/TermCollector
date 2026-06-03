@@ -11,4 +11,4 @@ STD_LINE_CHAR = "—"
 STD_PAGE_SIZE = 8
 
 # DEV
-DEV_MODE = True
+DEV_MODE = False
