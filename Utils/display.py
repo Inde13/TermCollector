@@ -58,4 +58,7 @@ def display_container(container, order=None, id=False,
 
     table([i.title() for i in order], cols)
 
-
+def display_warning_box(warning_msg):
+    if not warning_msg: return
+    print(warning_msg)
+    line()

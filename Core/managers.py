@@ -19,16 +19,19 @@ class StateManager:
     def go_back(self):
         if len(self.queue) >= 2:
             self.queue.pop()
-            self.current = self.queue[-1]()
+            self.go_to(self.queue.pop())
 
     def go_to(self, state_id):
         for state in self.state_pool:
             if state.id == state_id:
                 self.current = state()
-                self.queue.append(state)
+                self.queue.append(state.id)
                 return
         else:
             self.go_to(ref.id_wip)
+
+    def get_queue(self):
+        return self.queue[:]
 
     def run(self, context):
         self.current.run(context)
@@ -45,6 +48,9 @@ class DataManager:
     def remove(self, key):
         if key in self.data.keys():
             del self.data[key]
+
+    def has(self, key):
+        return key in self.data.keys()
 
     def wipe(self):
         self.data = {}

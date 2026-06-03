@@ -5,11 +5,11 @@
 - [ ] Basic scavenge/exploration
 - [ ] Inventory management
 - [ ] Item cards + Basic codex
+- [ ] Pivot to curses
 
 ## General
 
 - [ ] Codex (Items, Animals, Areas, etc
-- [ ] Improve visuals with rich
 
 ## Exploration
 

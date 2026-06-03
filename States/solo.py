@@ -1,10 +1,10 @@
 from rich import print
 
 from .base import State
-from Core.datakeys import *
+import Core.datakeys as dk
 import Core.refs as ref
 from Core.settings import STD_PROMPT, TERM_W
-from Utils.display import option_menu, line, display_container, display_title
+from Utils.display import option_menu, line, display_container, display_title, display_warning_box
 from Utils.items import get_random_item
 from Utils.pager import Pager
 
@@ -53,6 +53,13 @@ class ItemList(State):
         self.pager = None
 
     def run(self, ctx):
+        if ctx.dm.has(dk.SELECTION_VALUE):
+            ctx.dm.add(
+                    dk.WARNING_BOX_MSG,
+                    "Item cards are not avaiable in this version"
+            )
+            ctx.dm.remove(dk.SELECTION_VALUE)
+
         items = ctx.player.inventory.get()
         items = [f"{i.name} ({i.quantity}x)" for i in items]
         if self.pager is None or self.pager.data != items:
@@ -65,9 +72,12 @@ class ItemList(State):
         options = ["Item Card", "Back"]
         option_menu(options)
 
+        display_warning_box(ctx.dm.get(dk.WARNING_BOX_MSG))
+        ctx.dm.remove(dk.WARNING_BOX_MSG)
+
         match input(STD_PROMPT):
             case "1" if not self.pager.is_empty():
-                self.pager.selector_mode(ctx, SELECTION_VALUE)
+                self.pager.selector_mode(ctx, dk.SELECTION_VALUE)
             case "2":
                 ctx.sm.go_back()
 

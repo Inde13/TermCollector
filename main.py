@@ -46,6 +46,7 @@ class Game:
 
         while self.running:
             clr()
+            print(self.sm.get_queue())
             if DEV_MODE:
                 print("=- DEV MODE ON -=".center(TERM_W))
             try:

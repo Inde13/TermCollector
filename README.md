@@ -9,9 +9,11 @@
 ## 🏛️ Dependencies
 
 - pyyaml
-- rich
+- curses
 
 ## 🧩 How to play
+
+<!-- Add python installation process (Maybe a script to do it all) -->
 
 Clone the repository and run
 ```
@@ -20,11 +22,20 @@ python main.py
 ```
 
 if you don't have the dependency packages, run this first:
+
+On MacOS/Linux:
 ```
-pip install rich pyyaml
+pip install pyyaml
 ```
 
-✨ Boom! as simple as that.
+On Windows
+```
+pip install pyyaml windows-curses
+```
+
+Mind that the `curses` library support for Windows can present some instabilities.
+
+If you get any errors in the process or during the game, feel free to ask for help by [opening an issue](https://github.com/Inde13/TermCollector/issues) or at the [discussions](https://github.com/Inde13/TermCollector/discussions) tab
 
 ## Development
 

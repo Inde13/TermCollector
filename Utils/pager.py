@@ -87,7 +87,6 @@ class Pager:
                     ctx.dm.add(
                         selection_key,
                         self.pages[self.current][self.cursor])
-                    ctx.sm.go_back()
                     break
                 case "2":
                     ctx.sm.go_back()
