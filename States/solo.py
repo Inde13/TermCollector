@@ -1,9 +1,10 @@
 from rich import print
+import curses
 
 from .base import State
-import Core.datakeys as dk
-import Core.refs as ref
-from Core.settings import STD_PROMPT, TERM_W
+import Data.datakeys as dk
+import Data.refs as ref
+from Data.settings import *
 from Utils.display import option_menu, line, display_container, display_title, display_warning_box
 from Utils.items import get_random_item
 from Utils.pager import Pager
@@ -11,18 +12,22 @@ from Utils.pager import Pager
 
 class WIP(State):
     id = ref.id_wip
+
     def __init__(self):
         super().__init__()
 
     def run(self, ctx):
-        print("WIP: Coming soon")
-        print("Press ENTER to go back")
-        input()
+        stdscr.addstr("WIP: Coming soon\n")
+        stdscr.addstr("Press anything to go back")
+        stdscr.nodelay(0)
+        stdscr.getch()
+        stdscr.nodelay(1)
         ctx.sm.go_back()
 
 
 class Inventory(State):
     id = ref.id_inventory
+
     def __init__(self):
         super().__init__()
 
@@ -36,13 +41,13 @@ class Inventory(State):
 
         option_menu(options)
 
-        match input(STD_PROMPT):
-            case "1":
-                item = get_random_item(ctx.items).build(
-                        ctx.player.inventory)
-                ctx.player.inventory.add(item)
-            case "2":
-                ctx.sm.go_back()
+        key = stdscr.getch()
+        if key == ord("1"):
+            item = get_random_item(ctx.items).build(
+                    ctx.player.inventory)
+            ctx.player.inventory.add(item)
+        elif key == ord("2"):
+            ctx.sm.go_back()
 
 
 class ItemList(State):
@@ -75,9 +80,9 @@ class ItemList(State):
         display_warning_box(ctx.dm.get(dk.WARNING_BOX_MSG))
         ctx.dm.remove(dk.WARNING_BOX_MSG)
 
-        match input(STD_PROMPT):
-            case "1" if not self.pager.is_empty():
-                self.pager.selector_mode(ctx, dk.SELECTION_VALUE)
-            case "2":
-                ctx.sm.go_back()
+        key = stdscr.getch()
+        if key == ord("1"):
+            self.pager.selector_mode(ctx, dk.SELECTION_VALUE)
+        elif key == ord("2"):
+            ctx.sm.go_back()
 

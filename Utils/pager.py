@@ -1,8 +1,9 @@
 from math import ceil
+import curses
 
 from rich import print
 
-from Core.settings import TERM_W, STD_PAGE_SIZE, STD_PROMPT
+from Data.settings import *
 from Utils.display import *
 
 class Pager:
@@ -51,52 +52,56 @@ class Pager:
 
     def display_current(self):
         if self.page_amount == 0:
-            print("No data")
+            stdscr.addstr("No data\n")
             return
 
         for i in self.pages[self.current]:
-            print(i)
+            stdscr.addstr(i + "\n")
 
     def selector_mode(self, ctx, selection_key):
         if self.page_amount == 0:
-            print("No data")
+            stdscr.addstr("No data\n")
             return
 
         while True:
-            clr()
+            stdscr.erase()
 
             display_title("Selection Mode")
 
             for idx, i in enumerate(self.pages[self.current]):
                 txt = i
                 if idx == self.cursor: txt = "-->  " + txt
-                print(txt)
+                stdscr.addstr(txt + "\n")
 
             page_index = f"{self.current+1}/{self.page_amount}"
-            print(page_index.center(TERM_W))
+            stdscr.addstr(
+                    stdscr.getyx()[0],
+                    W//2-len(page_index)//2,
+                    page_index + "\n"
+            )
 
             line()
-            print("Enter 'w' or 's' to move the cursor")
-            print("Enter 'a' or 'd' to move the pages")
+            stdscr.addstr("Enter 'w' or 's' to move the cursor\n")
+            stdscr.addstr("Enter 'a' or 'd' to move the pages\n")
 
             options = ["Select", "Back"]
             option_menu(options)
 
-            match input(STD_PROMPT):
-                case "1" if self.page_amount > 0:
-                    ctx.dm.add(
-                        selection_key,
-                        self.pages[self.current][self.cursor])
-                    break
-                case "2":
-                    ctx.sm.go_back()
-                    break
-                case "a" if self.page_amount > 0:
-                    self.back_page()
-                case "d" if self.page_amount > 0:
-                    self.next_page()
-                case "w" if self.page_amount > 0:
-                    self.cursor_up()
-                case "s" if self.page_amount > 0:
-                    self.cursor_down()
+            key = stdscr.getch()
+            if key == ord("1") and self.page_amount > 0:
+                ctx.dm.add(
+                    selection_key,
+                    self.pages[self.current][self.cursor])
+                break
+            if key == ord("2"):
+                ctx.sm.go_back()
+                break
+            if key == ord("a") and self.page_amount > 0:
+                self.back_page()
+            if key == ord("d") and self.page_amount > 0:
+                self.next_page()
+            if key == ord("w") and self.page_amount > 0:
+                self.cursor_up()
+            if key == ord("s") and self.page_amount > 0:
+                self.cursor_down()
 

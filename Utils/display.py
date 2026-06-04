@@ -1,4 +1,6 @@
-from Core.settings import TERM_W, TERM_H, STD_LINE_CHAR, OS_NAME
+import curses
+
+from Data.settings import *
 
 def clr():
     from os import system
@@ -9,33 +11,35 @@ def clr():
     else:
         print("\n" * TERM_H)
 
-def line(n=TERM_W, char=STD_LINE_CHAR):
-    print(char*n)
+def line(n=W, char=STD_LINE_CHAR):
+    stdscr.addstr(char * n)
 
 def display_title(title):
     line()
-    print(title.center(TERM_W))
+    stdscr.addstr(1, W//2-len(title)//2, title+"\n")
     line()
 
 def option_menu(options):
     line()
     for idx, opt in enumerate(options):
-        print(f"[{idx+1}] - {opt}")
+        stdscr.addstr(f"[{idx+1}] - {opt}\n")
     line()
 
 def table(titles=None, cols=None, template=None):
     if cols is None or not cols:
-        print("Empty...")
+        stdscr.addstr("Empty...\n")
         return
 
     sizes = [max([len(str(i)) for i in col]) for col in cols]
     template = template or "|".join(
             [" {"+f"{sizes.index(s)}:<"+f"{s+2}"+"}"
              for s in sizes])
-    print(template.format(*titles))
+    titles = template.format(*titles)
+    stdscr.addstr(titles + "\n")
     line()
     for row in zip(*cols):
-        print(template.format(*row))
+        row_txt = template.format(*row)
+        stdscr.addstr(row_txt + "\n")
 
 def display_container(container, order=None, id=False,
                       name=True, quantity=True):
@@ -60,5 +64,5 @@ def display_container(container, order=None, id=False,
 
 def display_warning_box(warning_msg):
     if not warning_msg: return
-    print(warning_msg)
+    stdscr.addstr(warning_msg + "\n")
     line()

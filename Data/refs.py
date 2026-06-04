@@ -1,4 +1,5 @@
 # State ids
+id_title_screen = "title"
 id_start_menu = "start"
 id_main_menu = "main"
 id_items_list = "items"

@@ -1,4 +1,4 @@
-import Core.refs as ref
+import Data.refs as ref
 
 class StateManager:
     def __init__(self, *states):
